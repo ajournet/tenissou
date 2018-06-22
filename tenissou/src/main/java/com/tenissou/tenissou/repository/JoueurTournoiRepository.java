@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.tenissou.tenissou.identity.JoueurTournoiIdentity;
-import com.tenissou.tenissou.model.Joueur;
 import com.tenissou.tenissou.model.JoueurTournoi;
 
 @Repository

@@ -3,9 +3,9 @@ package com.tenissou.tenissou.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.tenissou.tenissou.model.Membre;
+import com.tenissou.tenissou.model.Tiebreak;
 
 @Repository
-public interface MembreRepository extends JpaRepository<Membre, Long>{
+public interface TiebreakRepository extends JpaRepository<Tiebreak, Long>{
 
 }
