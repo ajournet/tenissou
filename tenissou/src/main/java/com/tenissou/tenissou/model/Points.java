@@ -19,7 +19,7 @@ import com.tenissou.tenissou.identity.JeuIdentity;
 import com.tenissou.tenissou.identity.JoueurMatchIdentity;
 
 @Entity
-@Table(name = "jeu")
+@Table(name = "points")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
         allowGetters = true)
