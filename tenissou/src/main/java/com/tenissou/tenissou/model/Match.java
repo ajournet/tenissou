@@ -43,9 +43,6 @@ public class Match implements Serializable{
 	@NotBlank @Column(name="Terrain_match")
 	private String terrainMatch;
 	
-	@NotBlank @Column(name="Score_match")
-	private Integer idScore;
-	
 	public Match() {
 		super();
 	}
@@ -59,7 +56,6 @@ public class Match implements Serializable{
 		this.dateDebut = dateDebut;
 		this.etatMatch = etatMatch;
 		this.terrainMatch = terrainMatch;
-		this.idScore = idScore;
 	}
 
 	public long getIdMatch() {
@@ -108,13 +104,5 @@ public class Match implements Serializable{
 
 	public void setTerrainMatch(String terrainMatch) {
 		this.terrainMatch = terrainMatch;
-	}
-
-	public Integer getIdScore() {
-		return idScore;
-	}
-
-	public void setIdScore(Integer idScore) {
-		this.idScore = idScore;
 	}
 }

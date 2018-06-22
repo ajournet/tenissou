@@ -75,7 +75,6 @@ public class MatchController {
 		match.setDateDebut(MatchDetails.getDateDebut());
 		match.setEtatMatch(MatchDetails.getEtatMatch());
 		match.setTerrainMatch(MatchDetails.getTerrainMatch());
-		match.setIdScore(MatchDetails.getIdScore());
 		
 		Match updatedMatch = matchRepository.save(match);
 		
