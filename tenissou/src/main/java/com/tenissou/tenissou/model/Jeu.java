@@ -27,10 +27,10 @@ public class Jeu implements Serializable{
 	@EmbeddedId
 	private JeuIdentity jeuIdentity;
 	
-	@NotBlank @Column(name="Equipe1_point")
+	@NotBlank @Column(name="Equipe1_points")
 	private String equipe1Point;
 	
-	@NotBlank @Column(name="Equipe2_point")
+	@NotBlank @Column(name="Equipe2_points")
 	private String equipe2Point;
 
 	public Jeu() {

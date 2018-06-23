@@ -11,7 +11,7 @@ public class SetIdentity implements Serializable{
 
 	@NotNull
     @Size(max = 20)
-	private long idSat;
+	private long idSet;
 	
 	@NotNull
     @Size(max = 20)
@@ -21,9 +21,26 @@ public class SetIdentity implements Serializable{
 		super();
 	}
 
-	public SetIdentity(@NotNull @Size(max = 20) long idSat, @NotNull @Size(max = 20) long idMatch) {
+	public SetIdentity(@NotNull @Size(max = 20) long idSet, @NotNull @Size(max = 20) long idMatch) {
 		super();
-		this.idSat = idSat;
+		this.idSet = idSet;
 		this.idMatch = idMatch;
 	}
+
+	public long getIdSet() {
+		return idSet;
+	}
+
+	public void setIdSet(long idSet) {
+		this.idSet = idSet;
+	}
+
+	public long getIdMatch() {
+		return idMatch;
+	}
+
+	public void setIdMatch(long idMatch) {
+		this.idMatch = idMatch;
+	}
+
 }

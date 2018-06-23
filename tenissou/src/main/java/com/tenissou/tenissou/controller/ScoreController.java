@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tenissou.tenissou.exception.ResourceNotFoundException;
 import com.tenissou.tenissou.identity.JeuIdentity;
+import com.tenissou.tenissou.identity.SetIdentity;
 import com.tenissou.tenissou.model.Jeu;
 import com.tenissou.tenissou.model.Set;
 import com.tenissou.tenissou.model.Tiebreak;
@@ -93,6 +94,44 @@ public class ScoreController {
 		Jeu updatedJeu= jeuRepository.save(jeu);
 		
 		return updatedJeu;
+	}
+	
+	// Update +1 jeu J1
+	@PutMapping("/match/{idMatch}/{idSet}/joueur1")
+	public Set updateJeuJ1(@PathVariable(value = "idSet") Long idSet, 
+			@PathVariable(value = "idMatch") Long idMatch) {
+		
+		SetIdentity setIdentity = new SetIdentity();
+		setIdentity.setIdMatch(idMatch);
+		setIdentity.setIdSet(idSet);
+		
+		Set set = setRepository.findById(setIdentity)
+				.orElseThrow(() -> new ResourceNotFoundException("Set", "id", idSet));
+		
+		set.setEquipe1Jeu(set.getEquipe1Jeu()+1);
+		
+		Set updatedSet= setRepository.save(set);
+		
+		return updatedSet;
+	}
+	
+	// Update +1 jeu J2
+	@PutMapping("/match/{idMatch}/{idSet}/joueur2")
+	public Set updateJeuJ2(@PathVariable(value = "idSet") Long idSet, 
+			@PathVariable(value = "idMatch") Long idMatch) {
+		
+		SetIdentity setIdentity = new SetIdentity();
+		setIdentity.setIdMatch(idMatch);
+		setIdentity.setIdSet(idSet);
+		
+		Set set = setRepository.findById(setIdentity)
+				.orElseThrow(() -> new ResourceNotFoundException("Set", "id", idSet));
+		
+		set.setEquipe2Jeu(set.getEquipe2Jeu()+1);
+		
+		Set updatedSet= setRepository.save(set);
+		
+		return updatedSet;
 	}
 	
 }
