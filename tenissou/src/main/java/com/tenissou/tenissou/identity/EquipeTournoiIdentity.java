@@ -8,32 +8,32 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Embeddable
-public class JoueurTournoiIdentity implements Serializable{
+public class EquipeTournoiIdentity implements Serializable{
 	
 	@NotNull
     @Size(max = 20)
-	private long idJoueur;
+	private long idEquipe;
 	
 	@NotNull
     @Size(max = 20)
 	private long idTournoi;
 
-	public JoueurTournoiIdentity() {
+	public EquipeTournoiIdentity() {
 		super();
 	}
 
-	public JoueurTournoiIdentity(@NotNull @Size(max = 20) long idJoueur, @NotNull @Size(max = 20) long idTournoi) {
+	public EquipeTournoiIdentity(@NotNull @Size(max = 20) long idEquipe, @NotNull @Size(max = 20) long idTournoi) {
 		super();
-		this.idJoueur = idJoueur;
+		this.idEquipe = idEquipe;
 		this.idTournoi = idTournoi;
 	}
 
-	public long getIdJoueur() {
-		return idJoueur;
+	public long getIdEquipe() {
+		return idEquipe;
 	}
 
-	public void setIdJoueur(long idJoueur) {
-		this.idJoueur = idJoueur;
+	public void setIdEquipe(long idEquipe) {
+		this.idEquipe = idEquipe;
 	}
 
 	public long getIdTournoi() {

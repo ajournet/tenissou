@@ -16,7 +16,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tenissou.tenissou.identity.JeuIdentity;
-import com.tenissou.tenissou.identity.JoueurMatchIdentity;
 
 @Entity
 @Table(name = "jeu")
@@ -28,17 +27,21 @@ public class Jeu implements Serializable{
 	@EmbeddedId
 	private JeuIdentity jeuIdentity;
 	
-	@NotBlank @Column(name="Id_point")
-	private long idPoint;
+	@NotBlank @Column(name="Equipe1_point")
+	private long equipe1Point;
+	
+	@NotBlank @Column(name="Equipe2_point")
+	private long equipe2Point;
 
 	public Jeu() {
 		super();
 	}
 
-	public Jeu(JeuIdentity jeuIdentity, @NotBlank long idPoint) {
+	public Jeu(JeuIdentity jeuIdentity, @NotBlank long equipe1Point, @NotBlank long equipe2Point) {
 		super();
 		this.jeuIdentity = jeuIdentity;
-		this.idPoint = idPoint;
+		this.equipe1Point = equipe1Point;
+		this.equipe2Point = equipe2Point;
 	}
 
 	public JeuIdentity getJeuIdentity() {
@@ -49,11 +52,19 @@ public class Jeu implements Serializable{
 		this.jeuIdentity = jeuIdentity;
 	}
 
-	public long getIdPoint() {
-		return idPoint;
+	public long getEquipe1Point() {
+		return equipe1Point;
 	}
 
-	public void setIdPoint(long idPoint) {
-		this.idPoint = idPoint;
+	public void setEquipe1Point(long equipe1Point) {
+		this.equipe1Point = equipe1Point;
+	}
+
+	public long getEquipe2Point() {
+		return equipe2Point;
+	}
+
+	public void setEquipe2Point(long equipe2Point) {
+		this.equipe2Point = equipe2Point;
 	}
 }

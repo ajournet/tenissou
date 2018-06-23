@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tenissou.tenissou.exception.ResourceNotFoundException;
-import com.tenissou.tenissou.identity.JoueurMatchIdentity;
+import com.tenissou.tenissou.identity.EquipeMatchIdentity;
+import com.tenissou.tenissou.model.Equipe;
+import com.tenissou.tenissou.model.EquipeMatch;
 import com.tenissou.tenissou.model.Joueur;
-import com.tenissou.tenissou.model.JoueurMatch;
 import com.tenissou.tenissou.model.Match;
-import com.tenissou.tenissou.repository.JoueurMatchRepository;
+import com.tenissou.tenissou.repository.EquipeMatchRepository;
+import com.tenissou.tenissou.repository.EquipeRepository;
 import com.tenissou.tenissou.repository.JoueurRepository;
 import com.tenissou.tenissou.repository.MatchRepository;
 
@@ -39,7 +41,10 @@ public class MatchController {
     MatchRepository matchRepository;
 	
 	@Autowired
-	JoueurMatchRepository joueurMatchRepository;
+	EquipeMatchRepository equipeMatchRepository;
+	
+	@Autowired
+	EquipeRepository equipeRepository;
 	
 	@Autowired
 	JoueurRepository joueurRepository;
@@ -96,16 +101,29 @@ public class MatchController {
 	@GetMapping("/matchs/{id}/joueurs")
 	public List<Joueur> getPlayersByMatchById(@PathVariable(value = "id") Long matchId) {
 		
-		List<JoueurMatch> joueurMatch = joueurMatchRepository.findByJoueurMatchIdentityIdMatch(matchId);
+		List<EquipeMatch> listEquipeMatch = equipeMatchRepository.findByEquipeMatchIdentityIdMatch(matchId);
 		List<Joueur> listJoueur = new ArrayList<Joueur>();
 		Joueur j;
+		Equipe e;
+		long idEquipe = 0;
 		long idJoueur = 0;
 		
-		for(JoueurMatch joueur : joueurMatch) {
-			idJoueur = joueur.getJoueurMatchIdentity().getIdJoueur();
-			j = joueurRepository.findById(idJoueur)
-		            .orElseThrow(() -> new ResourceNotFoundException("Joueur", "id", joueur.getJoueurMatchIdentity().getIdJoueur()));
+		for(EquipeMatch equipeMatch : listEquipeMatch) {
+			
+			idEquipe = equipeMatch.getEquipeMatchIdentity().getIdEquipe();
+			e = equipeRepository.findById(idEquipe)
+					.orElseThrow(() -> new ResourceNotFoundException("Equipe", "id", equipeMatch.getEquipeMatchIdentity().getIdEquipe()));
+			final long idJ1 = e.getIdJoueur1();
+			j = joueurRepository.findById(e.getIdJoueur1())
+		            .orElseThrow(() -> new ResourceNotFoundException("Joueur1", "id", idJ1));
 			listJoueur.add(j);
+			
+			if(e.getIdJoueur2() != null || !"".equals(e.getIdJoueur2())) {
+				final long idJ2 = e.getIdJoueur2();
+				j = joueurRepository.findById(e.getIdJoueur2())
+			            .orElseThrow(() -> new ResourceNotFoundException("Joueur2", "id", idJ2));
+				listJoueur.add(j);
+			}
 		}
 		
 		return listJoueur;
@@ -113,17 +131,17 @@ public class MatchController {
 	}
 	
 	// add a joueur match
-	@PostMapping("/matchs/{id}/add/{idJoueur}")
-	public JoueurMatch createJoueurMatch(@PathVariable(value = "id") Long matchId, @PathVariable(value = "idJoueur") Long joueurId) {
+	@PostMapping("/matchs/{id}/add/{idEquipe}")
+	public EquipeMatch createEquipeMatch(@PathVariable(value = "id") Long matchId, @PathVariable(value = "idEquipe") Long equipeId) {
 		
-		JoueurMatch joueurMatch = new JoueurMatch();
-		JoueurMatchIdentity joueurMatchIdentity = new JoueurMatchIdentity();
+		EquipeMatch joueurMatch = new EquipeMatch();
+		EquipeMatchIdentity joueurMatchIdentity = new EquipeMatchIdentity();
 		
-		joueurMatchIdentity.setIdJoueur(joueurId);
+		joueurMatchIdentity.setIdEquipe(equipeId);
 		joueurMatchIdentity.setIdMatch(matchId);
 		
-		joueurMatch.setJoueurMatchIdentity(joueurMatchIdentity);
-		return joueurMatchRepository.save(joueurMatch);
+		joueurMatch.setEquipeMatchIdentity(joueurMatchIdentity);
+		return equipeMatchRepository.save(joueurMatch);
 		
 	}
 

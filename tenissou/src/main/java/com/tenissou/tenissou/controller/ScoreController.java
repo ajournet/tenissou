@@ -8,21 +8,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tenissou.tenissou.model.Arbitre;
 import com.tenissou.tenissou.model.Jeu;
 import com.tenissou.tenissou.model.Set;
 import com.tenissou.tenissou.model.Tiebreak;
 import com.tenissou.tenissou.repository.JeuRepository;
-import com.tenissou.tenissou.repository.PointRepository;
 import com.tenissou.tenissou.repository.SetRepository;
 import com.tenissou.tenissou.repository.TiebreakRepository;
 
 @RestController
 @RequestMapping("/api")
 public class ScoreController {
-	
-	@Autowired
-    PointRepository pointRepository;
 	
 	@Autowired
     JeuRepository jeuRepository;
@@ -51,5 +46,4 @@ public class ScoreController {
 	public Tiebreak createTiebreak(@Valid @RequestBody Tiebreak tiebreak) {
 		return tiebreakRepository.save(tiebreak);
 	}
-
 }

@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tenissou.tenissou.exception.ResourceNotFoundException;
-import com.tenissou.tenissou.identity.JoueurMatchIdentity;
-import com.tenissou.tenissou.identity.JoueurTournoiIdentity;
+import com.tenissou.tenissou.identity.EquipeTournoiIdentity;
+import com.tenissou.tenissou.model.Equipe;
+import com.tenissou.tenissou.model.EquipeMatch;
+import com.tenissou.tenissou.model.EquipeTournoi;
 import com.tenissou.tenissou.model.Joueur;
-import com.tenissou.tenissou.model.JoueurMatch;
-import com.tenissou.tenissou.model.JoueurTournoi;
 import com.tenissou.tenissou.model.Tournoi;
-import com.tenissou.tenissou.repository.JoueurMatchRepository;
+import com.tenissou.tenissou.repository.EquipeRepository;
+import com.tenissou.tenissou.repository.EquipeTournoiRepository;
 import com.tenissou.tenissou.repository.JoueurRepository;
-import com.tenissou.tenissou.repository.JoueurTournoiRepository;
 import com.tenissou.tenissou.repository.TournoiRepository;
 
 @RestController
@@ -36,10 +36,13 @@ public class TournoiController {
     TournoiRepository tournoiRepository;
 	
 	@Autowired
-	JoueurTournoiRepository joueurTournoiRepository;
+	EquipeTournoiRepository equipeTournoiRepository;
 	
 	@Autowired
 	JoueurRepository joueurRepository;
+	
+	@Autowired
+	EquipeRepository equipeRepository;
 	
 	@GetMapping("/tournois")
 	public List<Tournoi> getAllTournois() {
@@ -97,16 +100,27 @@ public class TournoiController {
 	@GetMapping("/tournois/{id}/joueurs")
 	public List<Joueur> getPlayersByMatchById(@PathVariable(value = "id") Long tournoiId) {
 		
-		List<JoueurTournoi> joueurTournoi = joueurTournoiRepository.findByJoueurTournoiIdentityIdTournoi(tournoiId);
+		List<EquipeTournoi> listEquipeTournoi = equipeTournoiRepository.findByEquipeTournoiIdentityIdTournoi(tournoiId);
 		List<Joueur> listJoueur = new ArrayList<Joueur>();
 		Joueur j;
+		Equipe e;
+		long idEquipe = 0;
 		long idJoueur = 0;
 		
-		for(JoueurTournoi joueur : joueurTournoi) {
-			idJoueur = joueur.getJoueurTournoiIdentity().getIdJoueur();
-			j = joueurRepository.findById(idJoueur)
-					.orElseThrow(() -> new ResourceNotFoundException("Joueur", "id", joueur.getJoueurTournoiIdentity().getIdJoueur()));
+		for(EquipeTournoi equipeTournoi : listEquipeTournoi) {
+			
+			idEquipe = equipeTournoi.getEquipeTournoiIdentity().getIdEquipe();
+			e = equipeRepository.findById(idEquipe)
+					.orElseThrow(() -> new ResourceNotFoundException("Equipe", "id", equipeTournoi.getEquipeTournoiIdentity().getIdEquipe()));
+			j = joueurRepository.findById(e.getIdJoueur1())
+		            .orElseThrow(() -> new ResourceNotFoundException("Joueur", "id", equipeTournoi.getEquipeTournoiIdentity().getIdEquipe()));
 			listJoueur.add(j);
+			
+			if(e.getIdJoueur2() != null || !"".equals(e.getIdJoueur2())) {
+				j = joueurRepository.findById(e.getIdJoueur2())
+			            .orElseThrow(() -> new ResourceNotFoundException("Joueur", "id", equipeTournoi.getEquipeTournoiIdentity().getIdEquipe()));
+				listJoueur.add(j);
+			}
 		}
 		
 		return listJoueur;
@@ -114,16 +128,16 @@ public class TournoiController {
 	}
 	
 	// add a joueur match
-	@PostMapping("/tournois/{id}/add/{idJoueur}")
-	public JoueurTournoi createJoueurMatch(@PathVariable(value = "id") Long tournoiId, @PathVariable(value = "idJoueur") Long joueurId) {
+	@PostMapping("/tournois/{id}/add/{idEquipe}")
+	public EquipeTournoi createJoueurTournoi(@PathVariable(value = "id") Long tournoiId, @PathVariable(value = "idEquipe") Long equipeId) {
 		
-		JoueurTournoi joueurTournoi = new JoueurTournoi();
-		JoueurTournoiIdentity joueurTournoiIdentity = new JoueurTournoiIdentity();
+		EquipeTournoi joueurTournoi = new EquipeTournoi();
+		EquipeTournoiIdentity joueurTournoiIdentity = new EquipeTournoiIdentity();
 		
-		joueurTournoiIdentity.setIdJoueur(joueurId);
+		joueurTournoiIdentity.setIdEquipe(equipeId);
 		joueurTournoiIdentity.setIdTournoi(tournoiId);
 		
-		joueurTournoi.setJoueurTournoiIdentity(joueurTournoiIdentity);
-		return joueurTournoiRepository.save(joueurTournoi);
+		joueurTournoi.setEquipeTournoiIdentity(joueurTournoiIdentity);
+		return equipeTournoiRepository.save(joueurTournoi);
 	}
 }

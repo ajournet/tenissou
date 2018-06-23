@@ -15,33 +15,32 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.tenissou.tenissou.identity.JoueurMatchIdentity;
-import com.tenissou.tenissou.identity.JoueurTournoiIdentity;
+import com.tenissou.tenissou.identity.EquipeTournoiIdentity;
 
 @Entity
-@Table(name = "joueur_tournoi")
+@Table(name = "equipe_tournoi")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
         allowGetters = true)
-public class JoueurTournoi implements Serializable{
+public class EquipeTournoi implements Serializable{
 	
 	@EmbeddedId
-	private JoueurTournoiIdentity joueurTournoiIdentity;
+	private EquipeTournoiIdentity equipeTournoiIdentity;
 
-	public JoueurTournoi() {
+	public EquipeTournoi() {
 		super();
 	}
 
-	public JoueurTournoi(JoueurTournoiIdentity joueurTournoiIdentity) {
+	public EquipeTournoi(EquipeTournoiIdentity equipeTournoiIdentity) {
 		super();
-		this.joueurTournoiIdentity = joueurTournoiIdentity;
+		this.equipeTournoiIdentity = equipeTournoiIdentity;
 	}
 
-	public JoueurTournoiIdentity getJoueurTournoiIdentity() {
-		return joueurTournoiIdentity;
+	public EquipeTournoiIdentity getEquipeTournoiIdentity() {
+		return equipeTournoiIdentity;
 	}
 
-	public void setJoueurTournoiIdentity(JoueurTournoiIdentity joueurTournoiIdentity) {
-		this.joueurTournoiIdentity = joueurTournoiIdentity;
+	public void setEquipeTournoiIdentity(EquipeTournoiIdentity equipeTournoiIdentity) {
+		this.equipeTournoiIdentity = equipeTournoiIdentity;
 	}
 }
