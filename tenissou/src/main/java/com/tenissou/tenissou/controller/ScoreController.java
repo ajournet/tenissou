@@ -3,11 +3,15 @@ package com.tenissou.tenissou.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tenissou.tenissou.exception.ResourceNotFoundException;
+import com.tenissou.tenissou.identity.JeuIdentity;
 import com.tenissou.tenissou.model.Jeu;
 import com.tenissou.tenissou.model.Set;
 import com.tenissou.tenissou.model.Tiebreak;
@@ -46,4 +50,53 @@ public class ScoreController {
 	public Tiebreak createTiebreak(@Valid @RequestBody Tiebreak tiebreak) {
 		return tiebreakRepository.save(tiebreak);
 	}
+	
+//	@PutMapping("/api/match/set/{idSet}/joueur1/1")
+//	public 
+	
+	
+	// Update score J1
+	@PutMapping("/match/{idSet}/{idJeu}/joueur1/{score}")
+	public Jeu updateScoreJ1(@PathVariable(value = "idSet") Long idSet, 
+			@PathVariable(value = "idJeu") Long idJeu, 
+			@PathVariable(value = "score") String Score) {
+		
+		JeuIdentity jeuIdentity = new JeuIdentity();
+		jeuIdentity.setIdJeu(idJeu);
+		jeuIdentity.setIdSet(idSet);
+		
+		Jeu jeu = jeuRepository.findById(jeuIdentity)
+				.orElseThrow(() -> new ResourceNotFoundException("Match", "id", idJeu));
+		
+		String score = Score;
+		
+		jeu.setEquipe1Point(score);
+		
+		Jeu updatedJeu= jeuRepository.save(jeu);
+		
+		return updatedJeu;
+	}
+	
+	// Update score J2
+	@PutMapping("/match/{idSet}/{idJeu}/joueur2/{score}")
+	public Jeu updateScoreJ2(@PathVariable(value = "idSet") Long idSet, 
+			@PathVariable(value = "idJeu") Long idJeu, 
+			@PathVariable(value = "score") String Score) {
+		
+		JeuIdentity jeuIdentity = new JeuIdentity();
+		jeuIdentity.setIdJeu(idJeu);
+		jeuIdentity.setIdSet(idSet);
+		
+		Jeu jeu = jeuRepository.findById(jeuIdentity)
+				.orElseThrow(() -> new ResourceNotFoundException("Match", "id", idJeu));
+		
+		String score = Score;
+		
+		jeu.setEquipe2Point(score);
+		
+		Jeu updatedJeu= jeuRepository.save(jeu);
+		
+		return updatedJeu;
+	}
+	
 }

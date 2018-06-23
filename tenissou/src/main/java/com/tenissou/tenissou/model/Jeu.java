@@ -28,16 +28,16 @@ public class Jeu implements Serializable{
 	private JeuIdentity jeuIdentity;
 	
 	@NotBlank @Column(name="Equipe1_point")
-	private long equipe1Point;
+	private String equipe1Point;
 	
 	@NotBlank @Column(name="Equipe2_point")
-	private long equipe2Point;
+	private String equipe2Point;
 
 	public Jeu() {
 		super();
 	}
 
-	public Jeu(JeuIdentity jeuIdentity, @NotBlank long equipe1Point, @NotBlank long equipe2Point) {
+	public Jeu(JeuIdentity jeuIdentity, @NotBlank String equipe1Point, @NotBlank String equipe2Point) {
 		super();
 		this.jeuIdentity = jeuIdentity;
 		this.equipe1Point = equipe1Point;
@@ -52,19 +52,19 @@ public class Jeu implements Serializable{
 		this.jeuIdentity = jeuIdentity;
 	}
 
-	public long getEquipe1Point() {
+	public String getEquipe1Point() {
 		return equipe1Point;
 	}
 
-	public void setEquipe1Point(long equipe1Point) {
+	public void setEquipe1Point(String equipe1Point) {
 		this.equipe1Point = equipe1Point;
 	}
 
-	public long getEquipe2Point() {
+	public String getEquipe2Point() {
 		return equipe2Point;
 	}
 
-	public void setEquipe2Point(long equipe2Point) {
+	public void setEquipe2Point(String equipe2Point) {
 		this.equipe2Point = equipe2Point;
 	}
 }
