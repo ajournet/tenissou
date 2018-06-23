@@ -51,10 +51,6 @@ public class ScoreController {
 		return tiebreakRepository.save(tiebreak);
 	}
 	
-//	@PutMapping("/api/match/set/{idSet}/joueur1/1")
-//	public 
-	
-	
 	// Update score J1
 	@PutMapping("/match/{idSet}/{idJeu}/joueur1/{score}")
 	public Jeu updateScoreJ1(@PathVariable(value = "idSet") Long idSet, 

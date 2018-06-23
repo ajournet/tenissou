@@ -116,7 +116,7 @@ public class TournoiController {
 		            .orElseThrow(() -> new ResourceNotFoundException("Joueur", "id", equipeTournoi.getEquipeTournoiIdentity().getIdEquipe()));
 			listJoueur.add(j);
 			
-			if(e.getIdJoueur2() != null || !"".equals(e.getIdJoueur2())) {
+			if(e.getIdJoueur2() != null) {
 				j = joueurRepository.findById(e.getIdJoueur2())
 			            .orElseThrow(() -> new ResourceNotFoundException("Joueur", "id", equipeTournoi.getEquipeTournoiIdentity().getIdEquipe()));
 				listJoueur.add(j);

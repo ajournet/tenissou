@@ -118,7 +118,7 @@ public class MatchController {
 		            .orElseThrow(() -> new ResourceNotFoundException("Joueur1", "id", idJ1));
 			listJoueur.add(j);
 			
-			if(e.getIdJoueur2() != null || !"".equals(e.getIdJoueur2())) {
+			if(e.getIdJoueur2() != null) {
 				final long idJ2 = e.getIdJoueur2();
 				j = joueurRepository.findById(e.getIdJoueur2())
 			            .orElseThrow(() -> new ResourceNotFoundException("Joueur2", "id", idJ2));
