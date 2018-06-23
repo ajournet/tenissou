@@ -43,12 +43,19 @@ public class Match implements Serializable{
 	@NotBlank @Column(name="Terrain_match")
 	private String terrainMatch;
 	
+	@NotBlank @Column(name="Equipe1_set")
+	private Integer equipe1_set;
+	
+	@NotBlank @Column(name="Equipe2_set")
+	private Integer equipe2_set;
+	
 	public Match() {
 		super();
 	}
 
 	public Match(long idMatch, @NotBlank String lieuMatch, @NotBlank Integer idTournoi, @NotBlank Date dateDebut,
-			@NotBlank String etatMatch, @NotBlank String terrainMatch, @NotBlank Integer idScore) {
+			@NotBlank String etatMatch, @NotBlank String terrainMatch, @NotBlank Integer equipe1_set,
+			@NotBlank Integer equipe2_set) {
 		super();
 		this.idMatch = idMatch;
 		this.lieuMatch = lieuMatch;
@@ -56,6 +63,8 @@ public class Match implements Serializable{
 		this.dateDebut = dateDebut;
 		this.etatMatch = etatMatch;
 		this.terrainMatch = terrainMatch;
+		this.equipe1_set = equipe1_set;
+		this.equipe2_set = equipe2_set;
 	}
 
 	public long getIdMatch() {
@@ -105,4 +114,21 @@ public class Match implements Serializable{
 	public void setTerrainMatch(String terrainMatch) {
 		this.terrainMatch = terrainMatch;
 	}
+
+	public Integer getEquipe1_set() {
+		return equipe1_set;
+	}
+
+	public void setEquipe1_set(Integer equipe1_set) {
+		this.equipe1_set = equipe1_set;
+	}
+
+	public Integer getEquipe2_set() {
+		return equipe2_set;
+	}
+
+	public void setEquipe2_set(Integer equipe2_set) {
+		this.equipe2_set = equipe2_set;
+	}
+
 }

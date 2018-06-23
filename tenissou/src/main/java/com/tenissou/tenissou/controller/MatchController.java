@@ -80,6 +80,8 @@ public class MatchController {
 		match.setDateDebut(MatchDetails.getDateDebut());
 		match.setEtatMatch(MatchDetails.getEtatMatch());
 		match.setTerrainMatch(MatchDetails.getTerrainMatch());
+		match.setEquipe2_set(MatchDetails.getEquipe1_set());
+		match.setEquipe2_set(MatchDetails.getEquipe2_set());
 		
 		Match updatedMatch = matchRepository.save(match);
 		

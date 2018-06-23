@@ -27,10 +27,10 @@ public class EquipeMatch implements Serializable{
 	@EmbeddedId
 	private EquipeMatchIdentity equipeMatchIdentity;
 	
-	@NotBlank @Column(name="Stat_joueur_match")
+	@NotBlank @Column(name="Stat_equipe_match")
 	private long statEquipeMatch;
 	
-	@NotBlank @Column(name="Type_joueur_match")
+	@NotBlank @Column(name="Type_equipe_match")
 	private long typeEquipeMatch;
 	
 	public EquipeMatch() {

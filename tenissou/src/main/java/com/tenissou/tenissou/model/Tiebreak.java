@@ -49,6 +49,13 @@ public class Tiebreak implements Serializable{
 		this.equipe2Score = equipe2Score;
 	}
 
+	public Tiebreak(@NotBlank Integer idSet, @NotBlank long equipe1Score,
+			@NotBlank long equipe2Score) {
+		this.idSet = idSet;
+		this.equipe1Score = equipe1Score;
+		this.equipe2Score = equipe2Score;
+	}
+
 	public long getIdTiebreak() {
 		return idTiebreak;
 	}

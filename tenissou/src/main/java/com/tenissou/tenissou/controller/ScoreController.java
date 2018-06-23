@@ -33,26 +33,58 @@ public class ScoreController {
 	@Autowired
     TiebreakRepository tiebreakRepository;
 	
-	
-	//create a set
-	@PostMapping("/createSet")
-	public Set createSet(@Valid @RequestBody Set set) {
-		return setRepository.save(set);
-	}
-	
 	//create a jeu
-	@PostMapping("/createJeu")
-	public Jeu createJeu(@Valid @RequestBody Jeu jeu) {
+	@PostMapping("/match/{idSet}/{idJeu}/createJeu")
+	public Jeu createJeu(@PathVariable(value = "idSet") Long idSet, 
+			@PathVariable(value = "idJeu") Long idJeu) {
+		
+		JeuIdentity jeuIdentity = new JeuIdentity(idJeu, idSet);
+		Jeu jeu = new Jeu(jeuIdentity, "0", "0");
 		return jeuRepository.save(jeu);
 	}
 	
 	//create a tiebreak
-	@PostMapping("/createTiebreak")
-	public Tiebreak createTiebreak(@Valid @RequestBody Tiebreak tiebreak) {
+	@PostMapping("/match/{idSet}/createTiebreak")
+	public Tiebreak createTiebreak(@PathVariable(value = "idSet") int idSet) {
+		
+		Tiebreak tiebreak = new Tiebreak(idSet, 0, 0);
+		
 		return tiebreakRepository.save(tiebreak);
 	}
 	
-	// Update score J1
+	// Update tiebreak J1
+	@PutMapping("/match/{idTiebreak}/joueur1/{score}")
+	public Tiebreak updateTiebreakJ1(@PathVariable(value = "idTiebreak") Long idTiebreak,
+			@PathVariable(value = "score") long Score) {
+		
+		Tiebreak tiebreak = tiebreakRepository.findById(idTiebreak)
+				.orElseThrow(() -> new ResourceNotFoundException("Tiebreak", "id", idTiebreak));
+		
+		tiebreak.setEquipe1Score(Score);
+		tiebreak.setEquipe2Score(tiebreak.getEquipe2Score());
+		
+		Tiebreak updatedTiebreak = tiebreakRepository.save(tiebreak);
+		
+		return updatedTiebreak;
+	}
+	
+	// Update tiebreak J1
+	@PutMapping("/match/{idTiebreak}/joueur2/{score}")
+	public Tiebreak updateTiebreakJ2(@PathVariable(value = "idTiebreak") Long idTiebreak,
+			@PathVariable(value = "score") long Score) {
+		
+		Tiebreak tiebreak = tiebreakRepository.findById(idTiebreak)
+				.orElseThrow(() -> new ResourceNotFoundException("Tiebreak", "id", idTiebreak));
+		
+		tiebreak.setEquipe1Score(tiebreak.getEquipe1Score());
+		tiebreak.setEquipe2Score(Score);
+		
+		Tiebreak updatedTiebreak = tiebreakRepository.save(tiebreak);
+		
+		return updatedTiebreak;
+	}
+	
+	// Update score J1 /15 || /30 ||/40 ||/40A
 	@PutMapping("/match/{idSet}/{idJeu}/joueur1/{score}")
 	public Jeu updateScoreJ1(@PathVariable(value = "idSet") Long idSet, 
 			@PathVariable(value = "idJeu") Long idJeu, 
@@ -68,6 +100,7 @@ public class ScoreController {
 		String score = Score;
 		
 		jeu.setEquipe1Point(score);
+		jeu.setEquipe2Point(jeu.getEquipe2Point());
 		
 		Jeu updatedJeu= jeuRepository.save(jeu);
 		
@@ -89,6 +122,7 @@ public class ScoreController {
 		
 		String score = Score;
 		
+		jeu.setEquipe1Point(jeu.getEquipe1Point());
 		jeu.setEquipe2Point(score);
 		
 		Jeu updatedJeu= jeuRepository.save(jeu);
@@ -109,6 +143,7 @@ public class ScoreController {
 				.orElseThrow(() -> new ResourceNotFoundException("Set", "id", idSet));
 		
 		set.setEquipe1Jeu(set.getEquipe1Jeu()+1);
+		set.setEquipe2Jeu(set.getEquipe2Jeu());
 		
 		Set updatedSet= setRepository.save(set);
 		
@@ -127,6 +162,7 @@ public class ScoreController {
 		Set set = setRepository.findById(setIdentity)
 				.orElseThrow(() -> new ResourceNotFoundException("Set", "id", idSet));
 		
+		set.setEquipe1Jeu(set.getEquipe1Jeu());
 		set.setEquipe2Jeu(set.getEquipe2Jeu()+1);
 		
 		Set updatedSet= setRepository.save(set);

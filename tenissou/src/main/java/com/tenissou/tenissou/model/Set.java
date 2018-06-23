@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tenissou.tenissou.identity.SetIdentity;
 
 @Entity
-@Table(name = "set")
+@Table(name = "set_tennis")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
         allowGetters = true)
