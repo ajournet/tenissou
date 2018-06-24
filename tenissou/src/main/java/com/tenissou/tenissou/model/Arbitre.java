@@ -39,9 +39,6 @@ public class Arbitre implements Serializable{
 	@NotBlank @Column(name="Age_arbitre")
 	private Integer age;
 	
-	@NotBlank @Column(name="Id_utilisateur")
-	private Integer idUtilisateur;
-	
 	@NotBlank @Column(name="Mail_arbitre")
 	private Integer mailArbitre;
 
@@ -53,7 +50,7 @@ public class Arbitre implements Serializable{
 	}
 
 	public Arbitre(long idArbitre, @NotBlank String nom, @NotBlank String prenom, @NotBlank String pays,
-			@NotBlank Integer age, @NotBlank Integer idUtilisateur, @NotBlank Integer mailArbitre,
+			@NotBlank Integer age, @NotBlank Integer mailArbitre,
 			@NotBlank Integer passwordArbitre) {
 		super();
 		this.idArbitre = idArbitre;
@@ -61,7 +58,6 @@ public class Arbitre implements Serializable{
 		this.prenom = prenom;
 		this.pays = pays;
 		this.age = age;
-		this.idUtilisateur = idUtilisateur;
 		this.mailArbitre = mailArbitre;
 		this.passwordArbitre = passwordArbitre;
 	}
@@ -104,14 +100,6 @@ public class Arbitre implements Serializable{
 
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-
-	public Integer getIdUtilisateur() {
-		return idUtilisateur;
-	}
-
-	public void setIdUtilisateur(Integer idUtilisateur) {
-		this.idUtilisateur = idUtilisateur;
 	}
 
 	public Integer getMailArbitre() {
