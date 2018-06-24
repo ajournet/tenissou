@@ -30,18 +30,23 @@ public class Organisation implements Serializable{
 	@NotBlank @Column(name="Nom_organisation")
 	private String nom;
 	
-	@NotBlank @Column(name="Id_utilisateur")
-	private String idUtilisateur;
+	@NotBlank @Column(name="Mail_organisation")
+	private Integer mailOrganisation;
+	
+	@NotBlank @Column(name="Password_organisation")
+	private Integer passwordOrganisation;
 
 	public Organisation() {
 		super();
 	}
 
-	public Organisation(long idOrganisation, @NotBlank String nom, @NotBlank String idUtilisateur) {
+	public Organisation(long idOrganisation, @NotBlank String nom, @NotBlank Integer mailOrganisation,
+			@NotBlank Integer passwordOrganisation) {
 		super();
 		this.idOrganisation = idOrganisation;
 		this.nom = nom;
-		this.idUtilisateur = idUtilisateur;
+		this.mailOrganisation = mailOrganisation;
+		this.passwordOrganisation = passwordOrganisation;
 	}
 
 	public long getIdOrganisation() {
@@ -60,12 +65,20 @@ public class Organisation implements Serializable{
 		this.nom = nom;
 	}
 
-	public String getIdUtilisateur() {
-		return idUtilisateur;
+	public Integer getMailOrganisation() {
+		return mailOrganisation;
 	}
 
-	public void setIdUtilisateur(String idUtilisateur) {
-		this.idUtilisateur = idUtilisateur;
+	public void setMailOrganisation(Integer mailOrganisation) {
+		this.mailOrganisation = mailOrganisation;
 	}
 
+	public Integer getPasswordOrganisation() {
+		return passwordOrganisation;
+	}
+
+	public void setPasswordOrganisation(Integer passwordOrganisation) {
+		this.passwordOrganisation = passwordOrganisation;
+	}
+	
 }
