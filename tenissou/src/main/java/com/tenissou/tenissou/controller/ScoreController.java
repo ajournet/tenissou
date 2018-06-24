@@ -208,6 +208,12 @@ public class ScoreController {
 		match.setEquipe1_set(match.getEquipe1_set()+1);
 		match.setEquipe2_set(match.getEquipe2_set());
 		
+		match.setDateDebut(match.getDateDebut());
+		match.setEtatMatch(match.getEtatMatch());
+		match.setLieuMatch(match.getLieuMatch());
+		match.setTerrainMatch(match.getTerrainMatch());
+		match.setIdTournoi(match.getIdTournoi());
+		
 		Match updatedMatch= matchRepository.save(match);
 		
 		return updatedMatch;

@@ -31,10 +31,10 @@ public class Match implements Serializable{
 	@NotBlank @Column(name="Lieu_match")
 	private String lieuMatch;
 	
-	@NotBlank @Column(name="Tournoi_match")
+	@Column(name="Tournoi_match")
 	private Integer idTournoi;
 	 
-	@NotBlank @Column(name="Date_debut_match")
+	@Column(name="Date_debut_match")
 	private Date dateDebut;
 	
 	@NotBlank @Column(name="Etat_match")
@@ -53,7 +53,7 @@ public class Match implements Serializable{
 		super();
 	}
 
-	public Match(long idMatch, @NotBlank String lieuMatch, @NotBlank Integer idTournoi, @NotBlank Date dateDebut,
+	public Match(long idMatch, @NotBlank String lieuMatch, Integer idTournoi, Date dateDebut,
 			@NotBlank String etatMatch, @NotBlank String terrainMatch, Integer equipe1_set,
 			Integer equipe2_set) {
 		super();
