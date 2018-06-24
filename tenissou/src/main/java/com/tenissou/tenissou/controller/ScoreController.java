@@ -15,9 +15,11 @@ import com.tenissou.tenissou.identity.JeuIdentity;
 import com.tenissou.tenissou.identity.SetIdentity;
 import com.tenissou.tenissou.identity.TiebreakIdentity;
 import com.tenissou.tenissou.model.Jeu;
+import com.tenissou.tenissou.model.Match;
 import com.tenissou.tenissou.model.Set;
 import com.tenissou.tenissou.model.Tiebreak;
 import com.tenissou.tenissou.repository.JeuRepository;
+import com.tenissou.tenissou.repository.MatchRepository;
 import com.tenissou.tenissou.repository.SetRepository;
 import com.tenissou.tenissou.repository.TiebreakRepository;
 
@@ -27,6 +29,9 @@ public class ScoreController {
 	
 	@Autowired
     JeuRepository jeuRepository;
+	
+	@Autowired
+    MatchRepository matchRepository;
 	
 	@Autowired
     SetRepository setRepository;
@@ -191,6 +196,36 @@ public class ScoreController {
 		Set updatedSet= setRepository.save(set);
 		
 		return updatedSet;
+	}
+	
+	// Update +1 set J1
+	@PutMapping("/match/{idMatch}/joueur1")
+	public Match updateSetJ1(@PathVariable(value = "idMatch") Long idMatch) {
+		
+		Match match = matchRepository.findById(idMatch)
+				.orElseThrow(() -> new ResourceNotFoundException("Match", "id", idMatch));
+		
+		match.setEquipe1_set(match.getEquipe1_set()+1);
+		match.setEquipe2_set(match.getEquipe2_set());
+		
+		Match updatedMatch= matchRepository.save(match);
+		
+		return updatedMatch;
+	}
+	
+	// Update +1 set J2
+	@PutMapping("/match/{idMatch}/joueur2")
+	public Match updateSetJ2(@PathVariable(value = "idMatch") Long idMatch) {
+		
+		Match match = matchRepository.findById(idMatch)
+				.orElseThrow(() -> new ResourceNotFoundException("Match", "id", idMatch));
+		
+		match.setEquipe1_set(match.getEquipe1_set());
+		match.setEquipe2_set(match.getEquipe2_set()+1);
+		
+		Match updatedMatch= matchRepository.save(match);
+		
+		return updatedMatch;
 	}
 	
 }
