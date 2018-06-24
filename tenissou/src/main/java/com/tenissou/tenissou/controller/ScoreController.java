@@ -163,7 +163,9 @@ public class ScoreController {
 		Set set = setRepository.findById(setIdentity)
 				.orElseThrow(() -> new ResourceNotFoundException("Set", "id", idSet));
 		
-		set.setEquipe1Jeu(set.getEquipe1Jeu()+1);
+		long score = set.getEquipe1Jeu()+1;
+		
+		set.setEquipe1Jeu(score);
 		set.setEquipe2Jeu(set.getEquipe2Jeu());
 		
 		Set updatedSet= setRepository.save(set);

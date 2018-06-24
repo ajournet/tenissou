@@ -25,17 +25,17 @@ public class Set implements Serializable{
 	@EmbeddedId
 	private SetIdentity setIdentity;
 	
-	@NotBlank @Column(name="Equipe1_jeu")
+	@Column(name="Equipe1_jeu")
 	private long equipe1Jeu;
 	
-	@NotBlank @Column(name="Equipe2_jeu")
+	@Column(name="Equipe2_jeu")
 	private long equipe2Jeu;
 
 	public Set() {
 		super();
 	}
 
-	public Set(SetIdentity setIdentity, @NotBlank long equipe1Jeu, @NotBlank long equipe2Jeu) {
+	public Set(SetIdentity setIdentity, long equipe1Jeu, long equipe2Jeu) {
 		super();
 		this.setIdentity = setIdentity;
 		this.equipe1Jeu = equipe1Jeu;

@@ -43,10 +43,10 @@ public class Match implements Serializable{
 	@NotBlank @Column(name="Terrain_match")
 	private String terrainMatch;
 	
-	@NotBlank @Column(name="Equipe1_set")
+	@Column(name="Equipe1_set")
 	private Integer equipe1_set;
 	
-	@NotBlank @Column(name="Equipe2_set")
+	@Column(name="Equipe2_set")
 	private Integer equipe2_set;
 	
 	public Match() {
@@ -54,8 +54,8 @@ public class Match implements Serializable{
 	}
 
 	public Match(long idMatch, @NotBlank String lieuMatch, @NotBlank Integer idTournoi, @NotBlank Date dateDebut,
-			@NotBlank String etatMatch, @NotBlank String terrainMatch, @NotBlank Integer equipe1_set,
-			@NotBlank Integer equipe2_set) {
+			@NotBlank String etatMatch, @NotBlank String terrainMatch, Integer equipe1_set,
+			Integer equipe2_set) {
 		super();
 		this.idMatch = idMatch;
 		this.lieuMatch = lieuMatch;
