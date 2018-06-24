@@ -8,6 +8,10 @@ import javax.validation.constraints.Size;
 
 @Embeddable
 public class JeuIdentity implements Serializable{
+	
+	@NotNull
+    @Size(max = 20)
+	private long idMatch;
 
 	@NotNull
     @Size(max = 20)
@@ -21,10 +25,20 @@ public class JeuIdentity implements Serializable{
 		super();
 	}
 
-	public JeuIdentity(@NotNull @Size(max = 20) long idJeu, @NotNull @Size(max = 20) long idSet) {
+	public JeuIdentity(@NotNull @Size(max = 20) long idMatch, @NotNull @Size(max = 20) long idJeu,
+			@NotNull @Size(max = 20) long idSet) {
 		super();
+		this.idMatch = idMatch;
 		this.idJeu = idJeu;
 		this.idSet = idSet;
+	}
+
+	public long getIdMatch() {
+		return idMatch;
+	}
+
+	public void setIdMatch(long idMatch) {
+		this.idMatch = idMatch;
 	}
 
 	public long getIdJeu() {
@@ -42,5 +56,4 @@ public class JeuIdentity implements Serializable{
 	public void setIdSet(long idSet) {
 		this.idSet = idSet;
 	}
-	
 }

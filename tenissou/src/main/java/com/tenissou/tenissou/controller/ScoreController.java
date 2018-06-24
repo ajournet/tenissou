@@ -34,11 +34,12 @@ public class ScoreController {
     TiebreakRepository tiebreakRepository;
 	
 	//create a jeu
-	@PostMapping("/match/{idSet}/{idJeu}/createJeu")
-	public Jeu createJeu(@PathVariable(value = "idSet") Long idSet, 
+	@PostMapping("/match/{idMatch}/{idSet}/{idJeu}/createJeu")
+	public Jeu createJeu(@PathVariable(value = "idMatch") Long idMatch,
+			@PathVariable(value = "idSet") Long idSet, 
 			@PathVariable(value = "idJeu") Long idJeu) {
 		
-		JeuIdentity jeuIdentity = new JeuIdentity(idJeu, idSet);
+		JeuIdentity jeuIdentity = new JeuIdentity(idMatch,idJeu, idSet);
 		Jeu jeu = new Jeu(jeuIdentity, "0", "0");
 		return jeuRepository.save(jeu);
 	}
