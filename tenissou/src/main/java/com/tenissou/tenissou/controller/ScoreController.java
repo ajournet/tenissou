@@ -68,7 +68,7 @@ public class ScoreController {
 		return updatedTiebreak;
 	}
 	
-	// Update tiebreak J1
+	// Update tiebreak J2
 	@PutMapping("/match/{idTiebreak}/joueur2/{score}")
 	public Tiebreak updateTiebreakJ2(@PathVariable(value = "idTiebreak") Long idTiebreak,
 			@PathVariable(value = "score") long Score) {
