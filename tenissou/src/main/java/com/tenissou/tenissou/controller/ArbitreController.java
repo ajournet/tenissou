@@ -57,6 +57,7 @@ public class ArbitreController {
 		arbitre.setPrenom(ArbitreDetails.getPrenom());
 		arbitre.setPays(ArbitreDetails.getPays());
 		arbitre.setAge(ArbitreDetails.getAge());
+		arbitre.setIdUtilisateur(ArbitreDetails.getIdUtilisateur());
 
 	    Arbitre updatedArbitre = ArbitreRepository.save(arbitre);
 	    return updatedArbitre;

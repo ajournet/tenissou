@@ -27,51 +27,34 @@ public class Utilisateur implements Serializable{
 	@Column(name="Id_utilisateur")
 	private long idUtilisateur;
 	
-	@NotBlank @Column(name="Nom_utilisateur")
-	private String nom;
-	 
-	@NotBlank @Column(name="Prenom_utilisateur")
-	private String prenom;
-	
 	@NotBlank @Column(name="Mail_utilisateur")
 	private String mail;
+	
+	@NotBlank @Column(name="Mdp_utilisateur")
+	private String mdpUtilisateur;
+	
+	@NotBlank @Column(name="Type_utilisateur")
+	private String typeUtilisateur;
 	
 	public Utilisateur() {
 		super();
 	}
 
-	public Utilisateur(long idUtilisateur, @NotBlank String nom, @NotBlank String prenom, @NotBlank String mail) {
+	public Utilisateur(long idUtilisateur, @NotBlank String mail, @NotBlank String mdpUtilisateur,
+			@NotBlank String typeUtilisateur) {
 		super();
 		this.idUtilisateur = idUtilisateur;
-		this.nom = nom;
-		this.prenom = prenom;
 		this.mail = mail;
+		this.mdpUtilisateur = mdpUtilisateur;
+		this.typeUtilisateur = typeUtilisateur;
 	}
-	
+
 	public long getIdUtilisateur() {
 		return idUtilisateur;
 	}
 
 	public void setIdUtilisateur(long idUtilisateur) {
 		this.idUtilisateur = idUtilisateur;
-	}
-
-
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
 	}
 
 	public String getMail() {
@@ -81,4 +64,21 @@ public class Utilisateur implements Serializable{
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+
+	public String getMdpUtilisateur() {
+		return mdpUtilisateur;
+	}
+
+	public void setMdpUtilisateur(String mdpUtilisateur) {
+		this.mdpUtilisateur = mdpUtilisateur;
+	}
+
+	public String getTypeUtilisateur() {
+		return typeUtilisateur;
+	}
+
+	public void setTypeUtilisateur(String typeUtilisateur) {
+		this.typeUtilisateur = typeUtilisateur;
+	}
+	
 }

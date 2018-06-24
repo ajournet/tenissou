@@ -25,27 +25,31 @@ public class Organisation implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="Id_organisation")
-	private long idUtilisateur;
+	private long idOrganisation;
 	
 	@NotBlank @Column(name="Nom_organisation")
 	private String nom;
+	
+	@NotBlank @Column(name="Id_utilisateur")
+	private String idUtilisateur;
 
 	public Organisation() {
 		super();
 	}
 
-	public Organisation(long idUtilisateur, @NotBlank String nom) {
+	public Organisation(long idOrganisation, @NotBlank String nom, @NotBlank String idUtilisateur) {
 		super();
-		this.idUtilisateur = idUtilisateur;
+		this.idOrganisation = idOrganisation;
 		this.nom = nom;
-	}
-
-	public long getIdUtilisateur() {
-		return idUtilisateur;
-	}
-
-	public void setIdUtilisateur(long idUtilisateur) {
 		this.idUtilisateur = idUtilisateur;
+	}
+
+	public long getIdOrganisation() {
+		return idOrganisation;
+	}
+
+	public void setIdOrganisation(long idOrganisation) {
+		this.idOrganisation = idOrganisation;
 	}
 
 	public String getNom() {
@@ -55,5 +59,13 @@ public class Organisation implements Serializable{
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
+
+	public String getIdUtilisateur() {
+		return idUtilisateur;
+	}
+
+	public void setIdUtilisateur(String idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
+	}
+
 }

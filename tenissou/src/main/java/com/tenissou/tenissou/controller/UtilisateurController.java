@@ -53,9 +53,9 @@ public class UtilisateurController {
 		Utilisateur utilisateur = UtilisateurRepository.findById(utilisateurId)
 	            .orElseThrow(() -> new ResourceNotFoundException("Utilisateur", "id", utilisateurId));
 
-		utilisateur.setNom(UtilisateurDetails.getNom());
-		utilisateur.setPrenom(UtilisateurDetails.getPrenom());
 		utilisateur.setMail(UtilisateurDetails.getMail());
+		utilisateur.setMdpUtilisateur(UtilisateurDetails.getMdpUtilisateur());
+		utilisateur.setTypeUtilisateur(UtilisateurDetails.getTypeUtilisateur());
 
 	    Utilisateur updatedUtilisateur = UtilisateurRepository.save(utilisateur);
 	    return updatedUtilisateur;
