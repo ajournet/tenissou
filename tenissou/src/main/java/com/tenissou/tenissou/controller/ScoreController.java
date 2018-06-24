@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tenissou.tenissou.exception.ResourceNotFoundException;
 import com.tenissou.tenissou.identity.JeuIdentity;
 import com.tenissou.tenissou.identity.SetIdentity;
+import com.tenissou.tenissou.identity.TiebreakIdentity;
 import com.tenissou.tenissou.model.Jeu;
 import com.tenissou.tenissou.model.Set;
 import com.tenissou.tenissou.model.Tiebreak;
@@ -45,21 +46,31 @@ public class ScoreController {
 	}
 	
 	//create a tiebreak
-	@PostMapping("/match/{idSet}/createTiebreak")
-	public Tiebreak createTiebreak(@PathVariable(value = "idSet") int idSet) {
+	@PostMapping("/match/{idMatch}/{idSet}/createTiebreak")
+	public Tiebreak createTiebreak(@PathVariable(value = "idMatch") int idMatch,
+			@PathVariable(value = "idSet") int idSet) {
 		
-		Tiebreak tiebreak = new Tiebreak(idSet, 0, 0);
+		TiebreakIdentity tiebreakIdentity = new TiebreakIdentity();
+		tiebreakIdentity.setIdMatch(idMatch);
+		tiebreakIdentity.setIdSet(idSet);
+		
+		Tiebreak tiebreak = new Tiebreak(tiebreakIdentity, 0, 0);
 		
 		return tiebreakRepository.save(tiebreak);
 	}
 	
 	// Update tiebreak J1
-	@PutMapping("/match/{idTiebreak}/joueur1/{score}")
-	public Tiebreak updateTiebreakJ1(@PathVariable(value = "idTiebreak") Long idTiebreak,
+	@PutMapping("/match/{idMatch}/{idSet}/joueur1/{score}")
+	public Tiebreak updateTiebreakJ1(@PathVariable(value = "idSet") Long idSet,
+			@PathVariable(value = "idMatch") Long idMatch,
 			@PathVariable(value = "score") long Score) {
 		
-		Tiebreak tiebreak = tiebreakRepository.findById(idTiebreak)
-				.orElseThrow(() -> new ResourceNotFoundException("Tiebreak", "id", idTiebreak));
+		TiebreakIdentity tiebreakIdentity = new TiebreakIdentity();
+		tiebreakIdentity.setIdMatch(idMatch);
+		tiebreakIdentity.setIdSet(idSet);
+		
+		Tiebreak tiebreak = tiebreakRepository.findById(tiebreakIdentity)
+				.orElseThrow(() -> new ResourceNotFoundException("Tiebreak", "id", tiebreakIdentity));
 		
 		tiebreak.setEquipe1Score(Score);
 		tiebreak.setEquipe2Score(tiebreak.getEquipe2Score());
@@ -70,12 +81,17 @@ public class ScoreController {
 	}
 	
 	// Update tiebreak J2
-	@PutMapping("/match/{idTiebreak}/joueur2/{score}")
-	public Tiebreak updateTiebreakJ2(@PathVariable(value = "idTiebreak") Long idTiebreak,
+	@PutMapping("/match/{idMatch}/{idSet}/joueur2/{score}")
+	public Tiebreak updateTiebreakJ2(@PathVariable(value = "idSet") Long idSet,
+			@PathVariable(value = "idMatch") Long idMatch,
 			@PathVariable(value = "score") long Score) {
 		
-		Tiebreak tiebreak = tiebreakRepository.findById(idTiebreak)
-				.orElseThrow(() -> new ResourceNotFoundException("Tiebreak", "id", idTiebreak));
+		TiebreakIdentity tiebreakIdentity = new TiebreakIdentity();
+		tiebreakIdentity.setIdMatch(idMatch);
+		tiebreakIdentity.setIdSet(idSet);
+		
+		Tiebreak tiebreak = tiebreakRepository.findById(tiebreakIdentity)
+				.orElseThrow(() -> new ResourceNotFoundException("Tiebreak", "id", tiebreakIdentity));
 		
 		tiebreak.setEquipe1Score(tiebreak.getEquipe1Score());
 		tiebreak.setEquipe2Score(Score);
@@ -86,14 +102,16 @@ public class ScoreController {
 	}
 	
 	// Update score J1 /15 || /30 ||/40 ||/40A
-	@PutMapping("/match/{idSet}/{idJeu}/joueur1/{score}")
-	public Jeu updateScoreJ1(@PathVariable(value = "idSet") Long idSet, 
+	@PutMapping("/match/{idMatch}/{idSet}/{idJeu}/joueur1/{score}")
+	public Jeu updateScoreJ1(@PathVariable(value = "idMatch") Long idMatch,
+			@PathVariable(value = "idSet") Long idSet, 
 			@PathVariable(value = "idJeu") Long idJeu, 
 			@PathVariable(value = "score") String Score) {
 		
 		JeuIdentity jeuIdentity = new JeuIdentity();
 		jeuIdentity.setIdJeu(idJeu);
 		jeuIdentity.setIdSet(idSet);
+		jeuIdentity.setIdMatch(idMatch);
 		
 		Jeu jeu = jeuRepository.findById(jeuIdentity)
 				.orElseThrow(() -> new ResourceNotFoundException("Match", "id", idJeu));
@@ -109,14 +127,16 @@ public class ScoreController {
 	}
 	
 	// Update score J2
-	@PutMapping("/match/{idSet}/{idJeu}/joueur2/{score}")
-	public Jeu updateScoreJ2(@PathVariable(value = "idSet") Long idSet, 
+	@PutMapping("/match/{idMatch}/{idSet}/{idJeu}/joueur2/{score}")
+	public Jeu updateScoreJ2(@PathVariable(value = "idMatch") Long idMatch,
+			@PathVariable(value = "idSet") Long idSet, 
 			@PathVariable(value = "idJeu") Long idJeu, 
 			@PathVariable(value = "score") String Score) {
 		
 		JeuIdentity jeuIdentity = new JeuIdentity();
 		jeuIdentity.setIdJeu(idJeu);
 		jeuIdentity.setIdSet(idSet);
+		jeuIdentity.setIdMatch(idMatch);
 		
 		Jeu jeu = jeuRepository.findById(jeuIdentity)
 				.orElseThrow(() -> new ResourceNotFoundException("Match", "id", idJeu));
