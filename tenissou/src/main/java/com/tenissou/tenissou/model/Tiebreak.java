@@ -28,17 +28,17 @@ public class Tiebreak implements Serializable{
 	@EmbeddedId
 	private TiebreakIdentity tiebreakIdentity;
 	
-	@NotBlank @Column(name="Equipe1_score")
+	@Column(name="Equipe1_score")
 	private long equipe1Score;
 	
-	@NotBlank @Column(name="Equipe2_score")
+	@Column(name="Equipe2_score")
 	private long equipe2Score;
 
 	public Tiebreak() {
 		super();
 	}
 
-	public Tiebreak(TiebreakIdentity tiebreakIdentity, @NotBlank long equipe1Score, @NotBlank long equipe2Score) {
+	public Tiebreak(TiebreakIdentity tiebreakIdentity, long equipe1Score, long equipe2Score) {
 		super();
 		this.tiebreakIdentity = tiebreakIdentity;
 		this.equipe1Score = equipe1Score;
