@@ -40,7 +40,7 @@ public class ArbitreController {
 		List<Arbitre> listArbitre = arbitreRepository.findAll();
 		
 		for(Arbitre a : listArbitre) {
-			if(a.getMailArbitre() == mail && a.getPasswordArbitre() == password) {
+			if(a.getMailArbitre().equals(mail) && a.getPasswordArbitre().equals(password)) {
 				login = true;
 			}
 		}
