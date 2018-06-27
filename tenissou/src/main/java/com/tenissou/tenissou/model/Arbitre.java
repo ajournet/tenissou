@@ -40,18 +40,17 @@ public class Arbitre implements Serializable{
 	private Integer age;
 	
 	@NotBlank @Column(name="Mail_arbitre")
-	private Integer mailArbitre;
+	private String mailArbitre;
 
 	@NotBlank @Column(name="Password_arbitre")
-	private Integer passwordArbitre;
+	private String passwordArbitre;
 	
 	public Arbitre() {
 		super();
 	}
 
 	public Arbitre(long idArbitre, @NotBlank String nom, @NotBlank String prenom, @NotBlank String pays,
-			@NotBlank Integer age, @NotBlank Integer mailArbitre,
-			@NotBlank Integer passwordArbitre) {
+			@NotBlank Integer age, @NotBlank String mailArbitre, @NotBlank String passwordArbitre) {
 		super();
 		this.idArbitre = idArbitre;
 		this.nom = nom;
@@ -102,19 +101,19 @@ public class Arbitre implements Serializable{
 		this.age = age;
 	}
 
-	public Integer getMailArbitre() {
+	public String getMailArbitre() {
 		return mailArbitre;
 	}
 
-	public void setMailArbitre(Integer mailArbitre) {
+	public void setMailArbitre(String mailArbitre) {
 		this.mailArbitre = mailArbitre;
 	}
 
-	public Integer getPasswordArbitre() {
+	public String getPasswordArbitre() {
 		return passwordArbitre;
 	}
 
-	public void setPasswordArbitre(Integer passwordArbitre) {
+	public void setPasswordArbitre(String passwordArbitre) {
 		this.passwordArbitre = passwordArbitre;
 	}
 	

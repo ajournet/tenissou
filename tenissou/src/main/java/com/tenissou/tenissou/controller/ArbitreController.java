@@ -24,24 +24,40 @@ import com.tenissou.tenissou.repository.ArbitreRepository;
 public class ArbitreController {
 	
 	@Autowired
-    ArbitreRepository ArbitreRepository;
+    ArbitreRepository arbitreRepository;
 
 	//Get all Players
 	@GetMapping("/arbitres")
 	public List<Arbitre> getAllArbitres() {
-	    return ArbitreRepository.findAll();
+	    return arbitreRepository.findAll();
+	}
+	
+	//Get all Players
+	@GetMapping("/arbitre/{mail}/{password}")
+	public Boolean isArbitre(@PathVariable(value = "mail") String mail, @PathVariable(value = "password") String password) {
+		boolean login = false;
+		
+		List<Arbitre> listArbitre = arbitreRepository.findAll();
+		
+		for(Arbitre a : listArbitre) {
+			if(a.getMailArbitre() == mail && a.getPasswordArbitre() == password) {
+				login = true;
+			}
+		}
+		
+		return login;
 	}
 	
 	//create a player
 	@PostMapping("/createArbitre")
 	public Arbitre createArbitre(@Valid @RequestBody Arbitre arbitre) {
-	    return ArbitreRepository.save(arbitre);
+	    return arbitreRepository.save(arbitre);
 	}
 	
 	// Get a Single player
 	@GetMapping("/arbitres/{id}")
 	public Arbitre getArbitreById(@PathVariable(value = "id") Long arbitreId) {
-	    return ArbitreRepository.findById(arbitreId)
+	    return arbitreRepository.findById(arbitreId)
 	            .orElseThrow(() -> new ResourceNotFoundException("Arbitre", "id", arbitreId));
 	}
 	
@@ -50,7 +66,7 @@ public class ArbitreController {
 	public Arbitre updateArbitre(@PathVariable(value = "id") Long arbitreId,
 	                                        @Valid @RequestBody Arbitre ArbitreDetails) {
 
-		Arbitre arbitre = ArbitreRepository.findById(arbitreId)
+		Arbitre arbitre = arbitreRepository.findById(arbitreId)
 	            .orElseThrow(() -> new ResourceNotFoundException("Arbitre", "id", arbitreId));
 
 		arbitre.setNom(ArbitreDetails.getNom());
@@ -58,17 +74,17 @@ public class ArbitreController {
 		arbitre.setPays(ArbitreDetails.getPays());
 		arbitre.setAge(ArbitreDetails.getAge());
 
-	    Arbitre updatedArbitre = ArbitreRepository.save(arbitre);
+	    Arbitre updatedArbitre = arbitreRepository.save(arbitre);
 	    return updatedArbitre;
 	}
 	
 	// Delete a player
 	@DeleteMapping("/arbitres/{id}")
 	public ResponseEntity<?> deleteArbitre(@PathVariable(value = "id") Long arbitreId) {
-		Arbitre arbitre = ArbitreRepository.findById(arbitreId)
+		Arbitre arbitre = arbitreRepository.findById(arbitreId)
 	            .orElseThrow(() -> new ResourceNotFoundException("Arbitre", "id", arbitreId));
 
-		ArbitreRepository.delete(arbitre);
+		arbitreRepository.delete(arbitre);
 
 	    return ResponseEntity.ok().build();
 	}
